@@ -45,11 +45,6 @@ class Transmission extends ActiveRecord
                 'targetAttribute' => ['name', 'transmission_manufacture_id']
             ],
             [
-                ['series', 'transmission_manufacture_id'],
-                'unique',
-                'targetAttribute' => ['series', 'transmission_manufacture_id']
-            ],
-            [
                 ['transmission_manufacture_id'],
                 'exist',
                 'skipOnError' => true,
