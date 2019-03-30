@@ -13,7 +13,7 @@ use DmitriiKoziuk\yii2Vehicles\VehiclesModule;
  * @property int $id
  * @property string $name
  */
-class Brands extends ActiveRecord
+class Brand extends ActiveRecord
 {
     /**
      * {@inheritdoc}
