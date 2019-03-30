@@ -15,6 +15,8 @@ final class VehiclesModule extends Module implements ModuleInterface
 {
     const ID = 'dk-vehicles';
 
+    const TRANSLATION = self::ID;
+
     /**
      * @var Container
      */
