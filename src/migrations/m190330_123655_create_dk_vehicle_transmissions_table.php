@@ -37,15 +37,6 @@ class m190330_123655_create_dk_vehicle_transmissions_table extends Migration
             ],
             true
         );
-        $this->createIndex(
-            'uidx_dk_vehicle_transmissions_series',
-            $this->vehicleTransmissionTable,
-            [
-                'series',
-                'transmission_manufacture_id',
-            ],
-            true
-        );
         $this->addForeignKey(
             'fk_dk_vehicle_transmissions_transmission_manufacture_id',
             $this->vehicleTransmissionTable,
