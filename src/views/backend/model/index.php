@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             [
                 'attribute' => 'brand_id',
+                'label' => 'Brand',
                 'content' => function ($entity) {
                     /** @var $entity Model */
                     return $entity->brand->name;
