@@ -5,7 +5,6 @@ namespace DmitriiKoziuk\yii2Vehicles\entities;
 use Yii;
 use \yii\db\ActiveRecord;
 use DmitriiKoziuk\yii2Base\BaseModule;
-use DmitriiKoziuk\yii2Vehicles\VehiclesModule;
 
 /**
  * This is the model class for table "{{%dk_vehicle_brands}}".
@@ -42,7 +41,7 @@ class Brand extends ActiveRecord
     {
         return [
             'id' => Yii::t(BaseModule::TRANSLATE, 'ID'),
-            'name' => Yii::t(VehiclesModule::TRANSLATION, 'Name'),
+            'name' => Yii::t(BaseModule::TRANSLATE, 'Name'),
         ];
     }
 }
