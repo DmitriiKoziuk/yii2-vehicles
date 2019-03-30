@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\web\YiiAsset;
 
 /* @var $this yii\web\View */
 /* @var $model DmitriiKoziuk\yii2Vehicles\entities\TransmissionManufacture */
@@ -9,7 +10,7 @@ use yii\widgets\DetailView;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Transmission Manufactures'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
 ?>
 <div class="transmission-manufacture-view">
 
