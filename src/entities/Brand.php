@@ -41,8 +41,8 @@ class Brand extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t(BaseModule::ID, 'ID'),
-            'name' => Yii::t(VehiclesModule::ID, 'Name'),
+            'id' => Yii::t(BaseModule::TRANSLATE, 'ID'),
+            'name' => Yii::t(VehiclesModule::TRANSLATION, 'Name'),
         ];
     }
 }
