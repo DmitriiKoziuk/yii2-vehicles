@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use DmitriiKoziuk\yii2Vehicles\entities\TransmissionManufacture;
 
 /* @var $this yii\web\View */
 /* @var $searchModel DmitriiKoziuk\yii2Vehicles\entities\TransmissionManufactureSearch */
@@ -27,7 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'vehicle_brand_id',
+            [
+                'attribute' => 'vehicle_brand_id',
+                'label' => 'Vehicle brand',
+                'content' => function ($entity) {
+                    /** @var $entity TransmissionManufacture */
+                    return $entity->vehicleBrand->name;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
