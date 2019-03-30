@@ -1,0 +1,73 @@
+<?php
+namespace DmitriiKoziuk\yii2Vehicles;
+
+use yii\base\Module;
+use yii\di\Container;
+use yii\web\Application as WebApp;
+use yii\base\Application as BaseApp;
+use DmitriiKoziuk\yii2Base\BaseModule;
+use DmitriiKoziuk\yii2ConfigManager\ConfigManagerModule;
+use DmitriiKoziuk\yii2ModuleManager\interfaces\ModuleInterface;
+use DmitriiKoziuk\yii2Vehicles\exceptions\InvalidArgumentException;
+
+final class VehiclesModule extends Module implements ModuleInterface
+{
+    const ID = 'dk-vehicles';
+
+    /**
+     * @var Container
+     */
+    public $diContainer;
+
+    /**
+     * Overwrite this param if you backend app id is different from default.
+     * @var string
+     */
+    public $backendAppId;
+
+    public function init()
+    {
+        /** @var BaseApp $app */
+        $app = $this->module;
+        $this->_initLocalProperties($app);
+        $this->_registerTranslation($app);
+    }
+
+    private function _initLocalProperties(BaseApp $app)
+    {
+        if (empty($this->backendAppId)) {
+            throw new InvalidArgumentException('Property backendAppId not set.');
+        }
+        if ($app instanceof WebApp && $app->id == $this->backendAppId) {
+            $this->controllerNamespace = __NAMESPACE__ . '\controllers\backend';
+            $this->viewPath = '@DmitriiKoziuk/yii2Vehicles/views/backend';
+        }
+    }
+
+    private function _registerTranslation(BaseApp $app)
+    {
+        $app->i18n->translations[self::ID] = [
+            'class'          => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en',
+            'basePath'       => '@DmitriiKoziuk/yii2Vehicles/messages',
+        ];
+    }
+
+    public static function getId(): string
+    {
+        return self::ID;
+    }
+
+    public function getBackendMenuItems(): array
+    {
+        return ['label' => 'Vehicles', 'url' => '/' . $this::ID . '/vehicles/index'];
+    }
+
+    public static function requireOtherModulesToBeActive(): array
+    {
+        return [
+            BaseModule::class,
+            ConfigManagerModule::class,
+        ];
+    }
+}
