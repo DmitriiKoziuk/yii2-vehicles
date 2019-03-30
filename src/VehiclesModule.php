@@ -5,6 +5,7 @@ use yii\base\Module;
 use yii\di\Container;
 use yii\web\Application as WebApp;
 use yii\base\Application as BaseApp;
+use yii\console\Application as ConsoleApp;
 use DmitriiKoziuk\yii2Base\BaseModule;
 use DmitriiKoziuk\yii2ConfigManager\ConfigManagerModule;
 use DmitriiKoziuk\yii2ModuleManager\interfaces\ModuleInterface;
@@ -41,6 +42,9 @@ final class VehiclesModule extends Module implements ModuleInterface
         if ($app instanceof WebApp && $app->id == $this->backendAppId) {
             $this->controllerNamespace = __NAMESPACE__ . '\controllers\backend';
             $this->viewPath = '@DmitriiKoziuk/yii2Vehicles/views/backend';
+        }
+        if ($app instanceof ConsoleApp) {
+            $app->controllerMap['migrate']['migrationNamespaces'][] = __NAMESPACE__ . '\migrations';
         }
     }
 
