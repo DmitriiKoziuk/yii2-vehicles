@@ -69,6 +69,7 @@ final class VehiclesModule extends Module implements ModuleInterface
         return ['label' => 'Vehicles', 'url' => '/' . $this::ID . '/vehicles/index', 'items' => [
             ['label' => 'Brands', 'url' => '/' . $this::ID . '/brand/index'],
             ['label' => 'Models', 'url' => '/' . $this::ID . '/model/index'],
+            ['label' => 'Transmission manufacture', 'url' => '/' . $this::ID . '/transmission-manufacture/index'],
         ]];
     }
 
