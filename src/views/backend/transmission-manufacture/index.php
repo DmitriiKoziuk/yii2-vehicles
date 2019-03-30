@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Vehicle brand',
                 'content' => function ($entity) {
                     /** @var $entity TransmissionManufacture */
-                    return $entity->vehicleBrand->name;
+                    return empty($entity->vehicleBrand) ? null : $entity->vehicleBrand->name;
                 }
             ],
 
