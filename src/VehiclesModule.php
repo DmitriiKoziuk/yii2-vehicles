@@ -64,7 +64,9 @@ final class VehiclesModule extends Module implements ModuleInterface
 
     public function getBackendMenuItems(): array
     {
-        return ['label' => 'Vehicles', 'url' => '/' . $this::ID . '/vehicles/index'];
+        return ['label' => 'Vehicles', 'url' => '/' . $this::ID . '/vehicles/index', 'items' => [
+            ['label' => 'Brands', 'url' => '/' . $this::ID . '/brand/index'],
+        ]];
     }
 
     public static function requireOtherModulesToBeActive(): array
