@@ -20,7 +20,7 @@ class m190330_103957_create_dk_vehicle_brands_table extends Migration
             'name' => $this->string(25)->notNull(),
         ]);
         $this->createIndex(
-            'idx_dk_vehicle_brands_name_unique',
+            'uidx_dk_vehicle_brands_name',
             $this->vehicleBrandsTable,
             'name',
             true

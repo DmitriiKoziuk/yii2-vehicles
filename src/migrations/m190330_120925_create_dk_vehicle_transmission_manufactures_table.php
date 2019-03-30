@@ -27,7 +27,7 @@ class m190330_120925_create_dk_vehicle_transmission_manufactures_table extends M
             'vehicle_brand_id'
         );
         $this->createIndex(
-            'idx_dk_vehicle_transmission_manufactures_name_unique',
+            'uidx_dk_vehicle_transmission_manufactures_name',
             $this->vehicleTransmissionManufactureTable,
             'name',
             true
