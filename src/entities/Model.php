@@ -58,7 +58,7 @@ class Model extends ActiveRecord
     {
         return [
             'id' => Yii::t(BaseModule::TRANSLATE, 'ID'),
-            'name' => Yii::t(VehiclesModule::TRANSLATION, 'Name'),
+            'name' => Yii::t(BaseModule::TRANSLATE, 'Name'),
             'brand_id' => Yii::t(VehiclesModule::TRANSLATION, 'Brand ID'),
         ];
     }
