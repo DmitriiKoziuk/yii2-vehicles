@@ -30,6 +30,8 @@ class m190331_084441_create_dk_vehicles_table extends Migration
             'drive_wheel' => "ENUM('front', 'rear', 'four', 'all') NULL DEFAULT NULL",
             'manufacture_start_date' => $this->integer()->defaultValue(NULL),
             'manufacture_end_date' => $this->integer()->defaultValue(NULL),
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
         ]);
         $this->createIndex(
             'idx_dk_vehicles_brand_id',

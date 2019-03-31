@@ -52,7 +52,9 @@ class Vehicle extends ActiveRecord
                     'transmissions_id',
                     'generation',
                     'manufacture_start_date',
-                    'manufacture_end_date'
+                    'manufacture_end_date',
+                    'created_at',
+                    'updated_at',
                 ],
                 'integer'
             ],
