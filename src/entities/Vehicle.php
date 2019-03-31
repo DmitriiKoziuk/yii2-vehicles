@@ -5,6 +5,7 @@ namespace DmitriiKoziuk\yii2Vehicles\entities;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 use DmitriiKoziuk\yii2Base\BaseModule;
 use DmitriiKoziuk\yii2Vehicles\VehiclesModule;
 
@@ -35,6 +36,13 @@ class Vehicle extends ActiveRecord
     public static function tableName()
     {
         return '{{%dk_vehicles}}';
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+        ];
     }
 
     /**
