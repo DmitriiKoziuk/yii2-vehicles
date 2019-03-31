@@ -12,9 +12,9 @@ use DmitriiKoziuk\yii2Vehicles\VehiclesModule;
  * This is the model class for table "{{%dk_vehicle_transmissions}}".
  *
  * @property int $id
+ * @property int $transmission_manufacture_id
  * @property string $name
  * @property string $series
- * @property int $transmission_manufacture_id
  * @property string $type
  *
  * @property TransmissionManufacture $transmissionManufacture
@@ -35,10 +35,11 @@ class Transmission extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'series', 'transmission_manufacture_id'], 'required'],
+            [['transmission_manufacture_id', 'name'], 'required'],
             [['transmission_manufacture_id'], 'integer'],
             [['type'], 'string'],
-            [['name', 'series'], 'string', 'max' => 45],
+            [['name'], 'string', 'max' => 45],
+            [['series'], 'string', 'max' => 15],
             [
                 ['name', 'transmission_manufacture_id'],
                 'unique',
@@ -61,9 +62,9 @@ class Transmission extends ActiveRecord
     {
         return [
             'id' => Yii::t(BaseModule::TRANSLATE, 'ID'),
+            'transmission_manufacture_id' => Yii::t(VehiclesModule::TRANSLATION, 'Transmission Manufacture ID'),
             'name' => Yii::t(BaseModule::TRANSLATE, 'Name'),
             'series' => Yii::t(VehiclesModule::TRANSLATION, 'Series'),
-            'transmission_manufacture_id' => Yii::t(VehiclesModule::TRANSLATION, 'Transmission Manufacture ID'),
             'type' => Yii::t(VehiclesModule::TRANSLATION, 'Type'),
         ];
     }
