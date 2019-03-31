@@ -55,8 +55,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'drive_wheel',
             'manufacture_start_date',
             'manufacture_end_date',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
