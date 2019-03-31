@@ -18,9 +18,9 @@ class m190330_123655_create_dk_vehicle_transmissions_table extends Migration
     {
         $this->createTable($this->vehicleTransmissionTable, [
             'id' => $this->primaryKey(),
-            'name' => $this->string(45)->notNull(),
-            'series' => $this->string(45)->notNull(),
             'transmission_manufacture_id' => $this->integer()->notNull(),
+            'name' => $this->string(45)->notNull(),
+            'series' => $this->string(15)->defaultValue(NULL),
             'type' => "ENUM('manual', 'automatic', 'cvt') NULL DEFAULT NULL",
         ]);
         $this->createIndex(
@@ -29,7 +29,7 @@ class m190330_123655_create_dk_vehicle_transmissions_table extends Migration
             'transmission_manufacture_id'
         );
         $this->createIndex(
-            'uidx_dk_vehicle_transmissions_name',
+            'uidx_dk_vehicle_transmissions_name_transmission_manufacture_id',
             $this->vehicleTransmissionTable,
             [
                 'name',
