@@ -20,6 +20,7 @@ class m190331_084441_create_dk_vehicles_table extends Migration
     {
         $this->createTable($this->vehiclesTable, [
             'id' => $this->primaryKey(),
+            'slug' => $this->string(255)->notNull(),
             'type' => "ENUM('car', 'motorcycle', 'atv') NOT NULL",
             'brand_id' => $this->integer()->notNull(),
             'model_id' => $this->integer()->notNull(),
@@ -33,6 +34,12 @@ class m190331_084441_create_dk_vehicles_table extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ]);
+        $this->createIndex(
+            'uidx_dk_vehicles_slug',
+            $this->vehiclesTable,
+            'slug',
+            true
+        );
         $this->createIndex(
             'idx_dk_vehicles_brand_id',
             $this->vehiclesTable,
