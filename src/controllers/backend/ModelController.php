@@ -3,17 +3,31 @@
 namespace DmitriiKoziuk\yii2Vehicles\controllers\backend;
 
 use Yii;
-use DmitriiKoziuk\yii2Vehicles\entities\Model;
-use DmitriiKoziuk\yii2Vehicles\entities\ModelSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use DmitriiKoziuk\yii2Base\helpers\UrlHelper;
+use DmitriiKoziuk\yii2Vehicles\entities\Brand;
+use DmitriiKoziuk\yii2Vehicles\entities\Model;
+use DmitriiKoziuk\yii2Vehicles\entities\ModelSearch;
 
 /**
  * ModelController implements the CRUD actions for Model model.
  */
 class ModelController extends Controller
 {
+    private $_urlHelper;
+
+    public function __construct(
+        $id,
+        $module,
+        UrlHelper $urlHelper,
+        $config = []
+    ) {
+        parent::__construct($id, $module, $config);
+        $this->_urlHelper = $urlHelper;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -21,7 +35,7 @@ class ModelController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -66,8 +80,14 @@ class ModelController extends Controller
     {
         $model = new Model();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            /** @var Brand $vehicleBrand */
+            $vehicleBrand = Brand::find()->where(['id' => $model->brand_id])->one();
+            $str = $vehicleBrand->name . ' ' . $model->name;
+            $model->slug = $this->_urlHelper::getSlugFromString($str);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
@@ -87,7 +107,13 @@ class ModelController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            /** @var Brand $vehicleBrand */
+            $vehicleBrand = Brand::find()->where(['id' => $model->brand_id])->one();
+            $str = $vehicleBrand->name . ' ' . $model->name;
+            $model->slug = $this->_urlHelper::getSlugFromString($str);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
