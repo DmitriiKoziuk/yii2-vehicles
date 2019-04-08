@@ -118,8 +118,22 @@ class VehicleController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            /** @var Brand $vehicleBrand */
+            $vehicleBrand = Brand::find()->where(['id' => $model->brand_id])->one();
+            /** @var Model $vehicleModel */
+            $vehicleModel = Model::find()->where(['id' => $model->model_id])->one();
+            $slug = $vehicleBrand->name .
+                ' ' .
+                $vehicleModel->name .
+                ' ' .
+                $model->chassis_code .
+                ' ' .
+                $model->sub_model_name;
+            $model->slug = $this->_urlHelper::getSlugFromString($slug);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
