@@ -18,11 +18,18 @@ class m190330_103957_create_dk_vehicle_brands_table extends Migration
         $this->createTable($this->vehicleBrandsTable, [
             'id' => $this->primaryKey(),
             'name' => $this->string(25)->notNull(),
+            'slug' => $this->string(25)->notNull(),
         ]);
         $this->createIndex(
             'uidx_dk_vehicle_brands_name',
             $this->vehicleBrandsTable,
             'name',
+            true
+        );
+        $this->createIndex(
+            'uidx_dk_vehicle_brands_slug',
+            $this->vehicleBrandsTable,
+            'slug',
             true
         );
     }
