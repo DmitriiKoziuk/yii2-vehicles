@@ -35,8 +35,8 @@ class Model extends ActiveRecord
     {
         return [
             [['brand_id', 'name', 'slug'], 'required'],
-            [['brand_id', 'slug'], 'integer'],
-            [['name'], 'string', 'max' => 45],
+            [['brand_id'], 'integer'],
+            [['name', 'slug'], 'string', 'max' => 45],
             [
                 ['name', 'brand_id'],
                 'unique',
