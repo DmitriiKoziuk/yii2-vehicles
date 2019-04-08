@@ -18,8 +18,9 @@ class m190330_104843_create_dk_vehicle_models_table extends Migration
     {
         $this->createTable($this->vehicleModelsTable, [
             'id' => $this->primaryKey(),
-            'name' => $this->string(45)->notNull(),
             'brand_id' => $this->integer()->notNull(),
+            'name' => $this->string(45)->notNull(),
+            'slug' => $this->string(45)->notNull(),
         ]);
         $this->createIndex(
             'idx_dk_vehicle_models_brand_id',
@@ -33,6 +34,12 @@ class m190330_104843_create_dk_vehicle_models_table extends Migration
                 'name',
                 'brand_id',
             ],
+            true
+        );
+        $this->createIndex(
+            'uidx_dk_vehicle_models_slug',
+            $this->vehicleModelsTable,
+            'slug',
             true
         );
         $this->addForeignKey(
