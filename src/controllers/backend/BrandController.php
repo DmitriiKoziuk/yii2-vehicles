@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use DmitriiKoziuk\yii2Base\helpers\UrlHelper;
 use DmitriiKoziuk\yii2Vehicles\entities\Brand;
 use DmitriiKoziuk\yii2Vehicles\entities\BrandSearch;
 
@@ -14,6 +15,18 @@ use DmitriiKoziuk\yii2Vehicles\entities\BrandSearch;
  */
 class BrandController extends Controller
 {
+    private $_urlHelper;
+
+    public function __construct(
+        $id,
+        $module,
+        UrlHelper $urlHelper,
+        $config = []
+    ) {
+        parent::__construct($id, $module, $config);
+        $this->_urlHelper = $urlHelper;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -66,8 +79,11 @@ class BrandController extends Controller
     {
         $model = new Brand();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->slug = $this->_urlHelper::getSlugFromString($model->name);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
