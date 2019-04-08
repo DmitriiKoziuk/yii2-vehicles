@@ -17,7 +17,7 @@ class ModelSearch extends Model
     {
         return [
             [['id', 'brand_id'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'slug'], 'safe'],
         ];
     }
 
@@ -61,7 +61,8 @@ class ModelSearch extends Model
             'brand_id' => $this->brand_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'slug', $this->slug]);
 
         return $dataProvider;
     }
