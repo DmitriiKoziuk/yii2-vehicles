@@ -18,7 +18,7 @@ class VehicleSearch extends Vehicle
     {
         return [
             [['id', 'brand_id', 'model_id', 'transmissions_id', 'generation', 'manufacture_start_date', 'manufacture_end_date', 'created_at', 'updated_at'], 'integer'],
-            [['type', 'chassis_code', 'sub_model_name', 'drive_wheel'], 'safe'],
+            [['slug', 'type', 'chassis_code', 'sub_model_name', 'drive_wheel'], 'safe'],
         ];
     }
 
@@ -69,7 +69,8 @@ class VehicleSearch extends Vehicle
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'type', $this->type])
+        $query->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'chassis_code', $this->chassis_code])
             ->andFilterWhere(['like', 'sub_model_name', $this->sub_model_name])
             ->andFilterWhere(['like', 'drive_wheel', $this->drive_wheel]);
