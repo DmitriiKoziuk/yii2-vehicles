@@ -3,17 +3,35 @@
 namespace DmitriiKoziuk\yii2Vehicles\controllers\backend;
 
 use Yii;
-use DmitriiKoziuk\yii2Vehicles\entities\Vehicle;
-use DmitriiKoziuk\yii2Vehicles\entities\VehicleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use DmitriiKoziuk\yii2Base\helpers\UrlHelper;
+use DmitriiKoziuk\yii2Vehicles\entities\Brand;
+use DmitriiKoziuk\yii2Vehicles\entities\Model;
+use DmitriiKoziuk\yii2Vehicles\entities\Vehicle;
+use DmitriiKoziuk\yii2Vehicles\entities\VehicleSearch;
 
 /**
  * VehicleController implements the CRUD actions for Vehicle model.
  */
 class VehicleController extends Controller
 {
+    /**
+     * @var UrlHelper
+     */
+    private $_urlHelper;
+
+    public function __construct(
+        $id,
+        $module,
+        UrlHelper $urlHelper,
+        $config = []
+    ) {
+        parent::__construct($id, $module, $config);
+        $this->_urlHelper = $urlHelper;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -66,8 +84,22 @@ class VehicleController extends Controller
     {
         $model = new Vehicle();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            /** @var Brand $vehicleBrand */
+            $vehicleBrand = Brand::find()->where(['id' => $model->brand_id])->one();
+            /** @var Model $vehicleModel */
+            $vehicleModel = Model::find()->where(['id' => $model->model_id])->one();
+            $slug = $vehicleBrand->name .
+                ' ' .
+                $vehicleModel->name .
+                ' ' .
+                $model->chassis_code .
+                ' ' .
+                $model->sub_model_name;
+            $model->slug = $this->_urlHelper::getSlugFromString($slug);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
