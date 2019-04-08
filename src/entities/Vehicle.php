@@ -13,6 +13,7 @@ use DmitriiKoziuk\yii2Vehicles\VehiclesModule;
  * This is the model class for table "{{%dk_vehicles}}".
  *
  * @property int $id
+ * @property string $slug
  * @property string $type
  * @property int $brand_id
  * @property int $model_id
@@ -51,7 +52,7 @@ class Vehicle extends ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'brand_id', 'model_id'], 'required'],
+            [['slug', 'type', 'brand_id', 'model_id'], 'required'],
             [['type', 'drive_wheel'], 'string'],
             [
                 [
@@ -66,9 +67,11 @@ class Vehicle extends ActiveRecord
                 ],
                 'integer'
             ],
+            [['slug'], 'string', 'max' => 255],
             [['chassis_code', 'sub_model_name'], 'string', 'max' => 25],
             [['chassis_code', 'sub_model_name'], 'default', 'value' => ''],
             [['generation'], 'default', 'value' => 1],
+            [['slug'], 'unique'],
             [
                 ['brand_id', 'model_id', 'chassis_code', 'sub_model_name'],
                 'unique',
@@ -105,6 +108,7 @@ class Vehicle extends ActiveRecord
     {
         return [
             'id' => Yii::t(BaseModule::TRANSLATE, 'ID'),
+            'slug' => Yii::t(BaseModule::TRANSLATE, 'Slug'),
             'type' => Yii::t(VehiclesModule::TRANSLATION, 'Type'),
             'brand_id' => Yii::t(VehiclesModule::TRANSLATION, 'Brand ID'),
             'model_id' => Yii::t(VehiclesModule::TRANSLATION, 'Model ID'),
