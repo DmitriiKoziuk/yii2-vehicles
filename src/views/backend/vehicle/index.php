@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'type',
+            'slug',
             [
                 'attribute' => 'Brand',
                 'content' => function ($entity) {
