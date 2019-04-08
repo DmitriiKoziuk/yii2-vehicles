@@ -11,6 +11,7 @@ use DmitriiKoziuk\yii2Base\BaseModule;
  *
  * @property int $id
  * @property string $name
+ * @property string $slug
  */
 class Brand extends ActiveRecord
 {
@@ -28,9 +29,10 @@ class Brand extends ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 25],
+            [['name', 'slug'], 'required'],
+            [['name', 'slug'], 'string', 'max' => 25],
             [['name'], 'unique'],
+            [['slug'], 'unique'],
         ];
     }
 
@@ -42,6 +44,7 @@ class Brand extends ActiveRecord
         return [
             'id' => Yii::t(BaseModule::TRANSLATE, 'ID'),
             'name' => Yii::t(BaseModule::TRANSLATE, 'Name'),
+            'slug' => Yii::t(BaseModule::TRANSLATE, 'Slug'),
         ];
     }
 }

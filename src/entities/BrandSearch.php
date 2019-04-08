@@ -4,7 +4,6 @@ namespace DmitriiKoziuk\yii2Vehicles\entities;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use DmitriiKoziuk\yii2Vehicles\entities\Brand;
 
 /**
  * BrandSearch represents the model behind the search form of `DmitriiKoziuk\yii2Vehicles\entities\Brand`.
@@ -18,7 +17,7 @@ class BrandSearch extends Brand
     {
         return [
             [['id'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'slug'], 'safe'],
         ];
     }
 
@@ -61,7 +60,8 @@ class BrandSearch extends Brand
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'slug', $this->slug]);
 
         return $dataProvider;
     }
