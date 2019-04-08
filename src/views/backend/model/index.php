@@ -32,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'name',
             [
                 'attribute' => 'brand_id',
                 'label' => 'Brand',
@@ -41,6 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $entity->brand->name;
                 }
             ],
+            'name',
+            'slug',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

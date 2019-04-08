@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use DmitriiKoziuk\yii2Vehicles\entities\Model;
 
 /* @var $this yii\web\View */
 /* @var $model DmitriiKoziuk\yii2Vehicles\entities\Model */
@@ -32,6 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'brand_id',
+            [
+                'attribute' => 'brand_id',
+                'label' => 'Brand',
+                'value' => function ($entity) {
+                    /** @var $entity Model */
+                    return $entity->brand->name;
+                }
+            ],
+            'slug',
         ],
     ]) ?>
 
