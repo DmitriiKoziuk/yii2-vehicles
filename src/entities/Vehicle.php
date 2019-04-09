@@ -71,6 +71,7 @@ class Vehicle extends ActiveRecord
             [['chassis_code', 'sub_model_name'], 'string', 'max' => 25],
             [['chassis_code', 'sub_model_name'], 'default', 'value' => ''],
             [['generation'], 'default', 'value' => 1],
+            [['drive_wheel'], 'default', 'value' => null],
             [['slug'], 'unique'],
             [
                 ['brand_id', 'model_id', 'chassis_code', 'sub_model_name'],
